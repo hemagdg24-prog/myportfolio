@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Skills — Hemaaswini Pericharla{% endblock %}
+{% block description %}Explore the technical skills and tools in Hemaaswini's arsenal including Python, Flask, Django, AI/ML and more.{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+    <div class="container">
+        <div class="page-hero-content">
+            <span class="section-badge">Expertise</span>
+            <h1 class="page-hero-title">My <span class="gradient-text">Skills</span></h1>
+            <p class="page-hero-desc">Technologies and tools I use to bring ideas to life.</p>
+        </div>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="skills-categories-grid">
+            {% for category, skills_list in data.skills.items() %}
+            <div class="skill-category-card">
+                <h3 class="skill-cat-title">
+                    {% if category == 'Languages' %}💻
+                    {% elif category == 'Frameworks' %}⚙️
+                    {% elif category == 'Tools' %}🔧
+                    {% elif 'AI' in category %}🤖
+                    {% else %}🌐
+                    {% endif %}
+                    {{ category }}
+                </h3>
+                <div class="skill-tags">
+                    {% for skill in skills_list %}
+                    <div class="skill-tag-animated">
+                        <span class="skill-tag-name">{{ skill }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Skill bars section -->
+        <div class="content-section">
+            <div class="section-header left">
+                <span class="section-badge">Proficiency</span>
+                <h2 class="section-title">Core <span class="gradient-text">Competencies</span></h2>
+            </div>
+            <div class="skill-bars-grid">
+                {% set core_skills = [
+                    ('Python', 90),
+                    ('Flask', 85),
+                    ('HTML/CSS', 88),
+                    ('JavaScript', 75),
+                    ('Django', 70),
+                    ('MySQL/SQL', 80),
+                    ('Machine Learning', 72),
+                    ('Git & GitHub', 85),
+                ] %}
+                {% for skill_name, pct in core_skills %}
+                <div class="skill-bar-item" data-pct="{{ pct }}">
+                    <div class="skill-bar-header">
+                        <span class="skill-bar-name">{{ skill_name }}</span>
+                        <span class="skill-bar-pct">{{ pct }}%</span>
+                    </div>
+                    <div class="skill-bar-track">
+                        <div class="skill-bar-fill" style="width: {{ pct }}%"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Animate skill bars when visible
+const bars = document.querySelectorAll('.skill-bar-fill');
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (e.isIntersecting) {
+            e.target.style.width = e.target.style.getPropertyValue('--target-width') || e.target.style['--target-width'];
+            e.target.classList.add('animated');
+            observer.unobserve(e.target);
+        }
+    });
+}, { threshold: 0.3 });
+bars.forEach(b => observer.observe(b));
+</script>
+{% endblock %}

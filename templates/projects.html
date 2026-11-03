@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Projects — Hemaaswini Pericharla{% endblock %}
+{% block description %}Explore all projects built by Hemaaswini Pericharla including AI apps, Flask backends, and web platforms.{% endblock %}
+
+{% block content %}
+<div class="page-hero">
+    <div class="container">
+        <div class="page-hero-content">
+            <span class="section-badge">My Work</span>
+            <h1 class="page-hero-title">All <span class="gradient-text">Projects</span></h1>
+            <p class="page-hero-desc">Real-world applications built with passion and purpose.</p>
+        </div>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="projects-full-grid">
+            {% for project in data.projects %}
+            <div class="project-full-card">
+                <div class="pfc-left">
+                    <div class="pfc-icon">{{ project.icon }}</div>
+                    {% if project.is_current %}
+                    <span class="pfc-date current-active-date">⚡ Currently Working</span>
+                    {% else %}
+                    <span class="pfc-date">{{ project.date }}</span>
+                    {% endif %}
+                </div>
+                <div class="pfc-right">
+                    <div class="pfc-header">
+                        <h3 class="pfc-title">
+                            <a href="{{ project.live or project.github }}" target="_blank" rel="noopener" style="color:#fff;text-decoration:none;">
+                                {{ project.name }}
+                                <span style="font-size:0.9rem;color:var(--clr-accent);">↗</span>
+                            </a>
+                            {% if project.is_current %}
+                            <span class="project-current-pill" style="margin-left: 8px;">
+                                <span class="pulse-dot-green"></span>
+                                Currently Working
+                            </span>
+                            {% endif %}
+                        </h3>
+                        <div class="pfc-links">
+                            {% if project.github %}
+                            <a href="{{ project.github }}" target="_blank" class="pfc-link-btn">
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943"/></svg>
+                                Source
+                            </a>
+                            {% endif %}
+                            {% if project.live %}
+                            <a href="{{ project.live }}" target="_blank" class="pfc-link-btn live">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                Live Demo
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <p class="pfc-desc">{{ project.description }}</p>
+                    <div class="pfc-tech">
+                        {% for t in project.tech %}
+                        <span class="tech-tag">{{ t }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
