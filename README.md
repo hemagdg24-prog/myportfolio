@@ -71,3 +71,4 @@ A modern, responsive, high-performance personal portfolio built with **Python & 
 ---
 
 © 2026 Hemaaswini Pericharla. Built with ❤️ using Flask & Python.
+
